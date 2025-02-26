@@ -1,0 +1,60 @@
+package br.com.eanassu.crudspringboot.controller;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import br.com.eanassu.crudspringboot.dao.FuncionarioDao;
+import br.com.eanassu.crudspringboot.pojo.Funcionario;
+
+@Controller
+@RequestMapping("/funcionarios")
+public class FuncionariosController {
+
+	private FuncionarioDao dao = new FuncionarioDao();
+	@GetMapping
+	public String getList(Model model) {
+		List<Funcionario> funcionarios = dao.getLista();
+		model.addAttribute("funcionarios", funcionarios);
+		return "funcionarios-list";
+	}
+
+	@GetMapping("/new")
+	public String showInsertForm(Model model) {
+		model.addAttribute("funcionario", new Funcionario());
+		return "create-funcionario";
+	}
+
+	@PostMapping
+	public String createFuncionario(@ModelAttribute Funcionario funcionario) {
+		dao.insert(funcionario);
+		return "redirect:/funcionarios";
+	}
+
+	@GetMapping("/edit/{re}")
+	public String showUpdateForm(@PathVariable Integer re, Model model) {
+		Funcionario funcionario = dao.buscarPeloRe(re);
+	    model.addAttribute("funcionario", funcionario);
+		return "update-funcionario";
+	}
+
+
+	@PostMapping("/update/{re}")
+	public String updateUser(@PathVariable Integer re, @ModelAttribute Funcionario funcionario) {
+		dao.update(funcionario);
+		return "redirect:/funcionarios";
+	}
+
+	@GetMapping("/delete/{re}")
+	public String deleteUser(@PathVariable Integer re) {
+		dao.delete(new Funcionario(re,null,null,null));
+		return "redirect:/funcionarios";
+	}
+
+}

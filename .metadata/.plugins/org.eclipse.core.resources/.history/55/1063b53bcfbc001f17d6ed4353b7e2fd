@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Inserir Funcionário</title>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var dateField = document.getElementById('dataAdmissao');
+            var currentDate = dateField.value;
+            if (currentDate) {
+                var dateParts = currentDate.split('-');
+                var formattedDate = dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0];
+                dateField.value = formattedDate;
+            }
+        });
+
+    </script>
+</head>
+<body>
+    <h1>Inserir Funcionário</h1>
+    <form action="#" th:action="@{/funcionarios/update/{re}(re=${funcionario.re})}" th:object="${funcionario}" method="post">
+        <label>RE:</label>
+        <input type="text" th:field="*{re}" /><br/>
+        <label>Nome:</label>
+        <input type="text" th:field="*{nome}" /><br/>
+        <label>Salário:</label>
+        <input type="text" th:field="*{salario}" /><br/>
+        <label>data de admissão:</label>
+        <input type="text" th:field="*{dataAdmissao}" id='dataAdmissao'/><br/>
+        <button type="submit">Salvar</button>
+    </form>
+    <a href="/funcionarios">Voltar para a Lista</a>
+</body>
+</html>

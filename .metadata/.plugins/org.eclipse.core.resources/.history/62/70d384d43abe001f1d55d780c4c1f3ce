@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Página Inicial</title>
+</head>
+<body>
+<p>Página Inicial</p>
+<p>Este sistema é um teste de Spring Boot fazendo um CRUD de uma tabela, usando um DAO </p>
+
+<a href="/lista">lista</a>
+</body>
+</html>

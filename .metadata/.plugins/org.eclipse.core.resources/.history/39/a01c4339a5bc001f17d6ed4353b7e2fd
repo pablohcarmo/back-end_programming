@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Usuários</title>
+</head>
+<body>
+    <h1>Lista de Funcionários</h1>
+    <table border='1'>
+        <tr>
+            <th>RE</th>
+            <th>Nome</th>
+            <th>Salário</th>
+            <th>Data de Admissão</th>
+        </tr>
+        <tr th:each="funcionario : ${funcionarios}">
+            <td th:text="${funcionario.re}">ID</td>
+            <td th:text="${funcionario.nome}">Nome</td>
+            <td th:text="${#numbers.formatCurrency(funcionario.salario)}">Salário</td>
+            <td th:text="${#dates.format(funcionario.dataAdmissao, 'dd/MM/yyyy')}">Data de Admissão</td>
+        </tr>
+    </table>
+</body>
+</html>
